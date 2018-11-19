@@ -105,7 +105,7 @@ class CoffeeDetail extends Component {
               </Picker>
             </Body>
           </ListItem>
-          <Button full danger>
+          <Button full danger onPress={() => this.props.add_item(this.state)}>
             <Text>Add</Text>
           </Button>
         </List>
@@ -117,7 +117,9 @@ class CoffeeDetail extends Component {
 const mapStateToProps = state => ({
   cart: state.cart
 });
-
+const mapDispatchToProps = dispatch => ({
+  add_item: item => dispatch(actionCreators.addItemToCart(item))
+});
 export default connect(
   mapStateToProps,
   {}
