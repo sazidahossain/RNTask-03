@@ -26,11 +26,11 @@ export const setCoffeeShopsLoading = () => ({
 export const addItemToCart = item => {
   return {
     type: actionTypes.ADD_ITEM,
-    payload: item
+    payload: { ...item, quantity: 1 }
   };
 };
 
-export const removeItemToCart = item => {
+export const removeItemFromCart = item => {
   return {
     type: actionTypes.REMOVE_ITEM,
     payload: item

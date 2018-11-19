@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import * as actionCreators from "../../store/actions/coffeeActions";
 // NativeBase Components
 import {
   Thumbnail,
@@ -27,7 +27,13 @@ class CoffeeDetail extends Component {
       option: "Small"
     };
   }
-
+  componentDidMount() {
+    this.props.navigation.setParams({ cartSize: this.props.cart.length });
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.navigation.getParam("cartSize") !== this.props.cart.length)
+      this.props.navigation.setParams({ cartSize: this.props.cart.length });
+  }
   static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam("shop", {}).name,
     headerRight: (
@@ -37,7 +43,7 @@ class CoffeeDetail extends Component {
         onPress={() => navigation.navigate("CoffeeCart")}
       >
         <Text>
-          {"3 "}
+          {navigation.getParam("cartSize")}
           <Icon
             type="FontAwesome"
             name="coffee"
@@ -115,12 +121,12 @@ class CoffeeDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart.list
 });
 const mapDispatchToProps = dispatch => ({
   add_item: item => dispatch(actionCreators.addItemToCart(item))
 });
 export default connect(
   mapStateToProps,
-  {}
+  mapDispatchToProps
 )(CoffeeDetail);

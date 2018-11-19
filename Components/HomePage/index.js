@@ -16,7 +16,9 @@ import Nav from "../Navigation";
 class HomePage extends Component {
   componentDidMount() {
     const { coffeeshops } = this.props.coffee;
-    if (!coffeeshops) this.props.getCoffeeShops();
+    if (!coffeeshops) {
+      this.props.getCoffeeShops();
+    }
   }
 
   render() {
